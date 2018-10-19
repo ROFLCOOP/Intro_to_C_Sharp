@@ -31,21 +31,20 @@
 			this.gameEditor = new System.Windows.Forms.Panel();
 			this.ButtonExit = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
+			this.buttonSave = new System.Windows.Forms.Button();
 			this.comboBoxColour = new System.Windows.Forms.ComboBox();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.gameEditor.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			this.button3 = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// gameEditor
 			// 
 			this.gameEditor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.gameEditor.Controls.Add(this.pictureBox1);
 			this.gameEditor.Location = new System.Drawing.Point(170, 12);
 			this.gameEditor.Name = "gameEditor";
 			this.gameEditor.Size = new System.Drawing.Size(249, 232);
 			this.gameEditor.TabIndex = 0;
+			this.gameEditor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gameEditor_MouseDown);
+			this.gameEditor.MouseUp += new System.Windows.Forms.MouseEventHandler(this.gameEditor_MouseUp);
 			// 
 			// ButtonExit
 			// 
@@ -66,15 +65,15 @@
 			this.button1.Text = "Test Play";
 			this.button1.UseVisualStyleBackColor = true;
 			// 
-			// button2
+			// buttonSave
 			// 
-			this.button2.Location = new System.Drawing.Point(12, 103);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(75, 23);
-			this.button2.TabIndex = 3;
-			this.button2.Text = "Save";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.button2_Click);
+			this.buttonSave.Location = new System.Drawing.Point(12, 103);
+			this.buttonSave.Name = "buttonSave";
+			this.buttonSave.Size = new System.Drawing.Size(75, 23);
+			this.buttonSave.TabIndex = 3;
+			this.buttonSave.Text = "Save";
+			this.buttonSave.UseVisualStyleBackColor = true;
+			this.buttonSave.Click += new System.EventHandler(this.Save_Click);
 			// 
 			// comboBoxColour
 			// 
@@ -92,30 +91,29 @@
 			this.comboBoxColour.Size = new System.Drawing.Size(90, 21);
 			this.comboBoxColour.TabIndex = 4;
 			this.comboBoxColour.Text = "Select Colour";
-			this.comboBoxColour.SelectionChangeCommitted += new System.EventHandler(this.comboBoxColour_SelectionChangeCommitted);
 			// 
-			// pictureBox1
+			// button3
 			// 
-			this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(239, 222);
-			this.pictureBox1.TabIndex = 0;
-			this.pictureBox1.TabStop = false;
+			this.button3.Location = new System.Drawing.Point(13, 132);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(75, 23);
+			this.button3.TabIndex = 5;
+			this.button3.Text = "Load";
+			this.button3.UseVisualStyleBackColor = true;
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(431, 256);
+			this.Controls.Add(this.button3);
 			this.Controls.Add(this.comboBoxColour);
-			this.Controls.Add(this.button2);
+			this.Controls.Add(this.buttonSave);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.ButtonExit);
 			this.Controls.Add(this.gameEditor);
 			this.Name = "Form1";
 			this.Text = "Picross Editor";
-			this.gameEditor.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -125,9 +123,9 @@
 		private System.Windows.Forms.Panel gameEditor;
 		private System.Windows.Forms.Button ButtonExit;
 		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button buttonSave;
 		private System.Windows.Forms.ComboBox comboBoxColour;
-		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.Button button3;
 	}
 }
 

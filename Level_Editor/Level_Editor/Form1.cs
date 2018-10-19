@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Level_Editor;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Level_Editor
 { 
@@ -27,15 +29,28 @@ namespace Level_Editor
 				{
 					panelGrid[i, j] = new PicrossGrid(); // this loop creates and sets the positions of the panels in the editor
 					panelGrid[i, j].panel.Parent = gameEditor;
+					panelGrid[i, j].panel.Name = i.ToString() + " " + j.ToString();
 					int posX = (j * 16) + 60;
 					int posY = (i * 16) + 60;
 					panelGrid[i, j].panel.Location = new Point(posX, posY);
 					panelGrid[i, j].panel.Size = new Size(15, 15);
 					panelGrid[i, j].panel.BorderStyle = BorderStyle.FixedSingle;
-					panelGrid[i, j].panel.Click += panel_Click;
+					panelGrid[i, j].panel.Click += Panel_Click;
 					panelGrid[i, j].itX = j;
 					panelGrid[i, j].itY = i;
 					panelGrid[i, j].panel.BringToFront();
+					panelGrid[i, j].panel.MouseMove += panel_MouseMove;
+					//panelGrid[i, j].panel.MouseLeave += panel_MouseLeave;
+					panelGrid[i, j].panel.MouseDown += delegate (object sender, MouseEventArgs e)
+					{
+						gameEditor_MouseDown(sender, e);
+					};
+					panelGrid[i, j].panel.MouseUp += delegate (object sender, MouseEventArgs e)
+					{
+						gameEditor_MouseUp(sender, e);
+					};
+
+
 				}
 				for (int j = 0; j < 5; j++)
 				{
@@ -64,17 +79,17 @@ namespace Level_Editor
 
 			for (int i = 0; i < 10; i++)
 			{
-				clearColCount(i);
-				clearRowCount(i);
+				ClearColCount(i);
+				ClearRowCount(i);
 			}
 		}
-		class PicrossGrid
-		{
-			public Panel panel = new Panel();
-			public int itX;
-			public int itY;
-			public Color color = DefaultBackColor;
-		}
+		//class PicrossGrid
+		//{
+		//	public Panel panel = new Panel();
+		//	public int itX;
+		//	public int itY;
+		//	public Color color = DefaultBackColor;
+		//}
 
 
 		private void ButtonExit_Click(object sender, EventArgs e)
@@ -82,7 +97,7 @@ namespace Level_Editor
 			Application.Exit();
 		}
 
-		private void panel_Click(object sender, EventArgs e)
+		private void Panel_Click(object sender, EventArgs e)
 		{
 			Panel panel = (Panel)sender;
 			if (panel.BackColor == selectedColour)
@@ -93,19 +108,19 @@ namespace Level_Editor
 			{
 				panel.BackColor = selectedColour;
 			}
-			int[] iterators = getIterators(panel);
+			int[] iterators = GetIterators(panel);
 			if(iterators == null)
 			{
 				
 			}
-			checkRow(iterators[0]);
-			checkCol(iterators[1]);
+			CheckRow(iterators[0]);
+			CheckCol(iterators[1]);
 
 		}
 
-		private void checkRow(int it)
+		private void CheckRow(int it)
 		{
-			clearRowCount(it);
+			ClearRowCount(it);
 			int counter = 0;
 			bool prev = false;
 			for(int i = 0; i < 10; i++)
@@ -113,7 +128,7 @@ namespace Level_Editor
 				if (panelGrid[it, i].panel.BackColor != DefaultBackColor && i == 9)
 				{
 					counter++;
-					pushBackRow(it, "" + counter);
+					PushBackRow(it, "" + counter);
 				}
 				else if (panelGrid[it, i].panel.BackColor != DefaultBackColor)
 				{
@@ -124,16 +139,16 @@ namespace Level_Editor
 				{
 					if (counter != 0)
 					{
-						pushBackRow(it, "" + counter);
+						PushBackRow(it, "" + counter);
 					}
 					counter = 0;
 					prev = false;
 				}
 			}
 		}
-		private void checkCol(int it)
+		private void CheckCol(int it)
 		{
-			clearColCount(it);
+			ClearColCount(it);
 			int counter = 0;
 			bool prev = false;
 			for (int i = 0; i < 10; i++)
@@ -141,7 +156,7 @@ namespace Level_Editor
 				if (panelGrid[i, it].panel.BackColor != DefaultBackColor && i == 9)
 				{
 					counter++;
-					pushBackCol(it, "" + counter);
+					PushBackCol(it, "" + counter);
 				}
 				else if (panelGrid[i, it].panel.BackColor != DefaultBackColor) 
 				{
@@ -152,7 +167,7 @@ namespace Level_Editor
 				{
 					if (counter != 0)
 					{
-						pushBackCol(it, "" + counter);
+						PushBackCol(it, "" + counter);
 					}
 					counter = 0;
 					prev = false;
@@ -160,7 +175,7 @@ namespace Level_Editor
 			}
 		}
 
-		private void clearRowCount(int it)
+		private void ClearRowCount(int it)
 		{
 			for (int i = 0; i < 5; i++)
 			{
@@ -168,7 +183,7 @@ namespace Level_Editor
 				gridCountsX[i, it].Visible = false;
 			}
 		}
-		private void clearColCount(int it)
+		private void ClearColCount(int it)
 		{
 			for (int i = 0; i < 5; i++)
 			{
@@ -176,7 +191,7 @@ namespace Level_Editor
 				gridCountsY[it, i].Visible = false;
 			}
 		}
-		private int[] getIterators(Panel panel)
+		private int[] GetIterators(Panel panel)
 		{
 			for (int i = 0; i < 10; i++)
 			{
@@ -194,7 +209,7 @@ namespace Level_Editor
 			return null;
 		}
 
-		private void pushBackRow(int it, String value)
+		private void PushBackRow(int it, String value)
 		{
 			for (int i = 0; i < 5; i++)
 			{
@@ -207,7 +222,7 @@ namespace Level_Editor
 			gridCountsX[4, it].Text = value;
 			gridCountsX[4, it].Visible = true;
 		}
-		private void pushBackCol(int it, String value)
+		private void PushBackCol(int it, String value)
 		{
 			for (int i = 1; i < 5; i++)
 			{
@@ -221,48 +236,120 @@ namespace Level_Editor
 			gridCountsY[it, 4].Visible = true;
 		}
 
+		Color			selectedColour = Color.Black;
+		PicrossGrid[,]	panelGrid;
+		Label[,]		gridCountsY;
+		Label[,]		gridCountsX;
+		bool			mouseDown = false;
+		Panel			prevPanel;
 
-		private void comboBoxColour_SelectionChangeCommitted(object sender, EventArgs e)
+
+
+		[Serializable]
+		public class SaveData
 		{
-			ComboBox comboBox = (ComboBox)sender;
-			if((String)comboBox.SelectedItem == "Black")
+			[Serializable]
+			public class SaveColor
 			{
-				selectedColour = Color.Black;
+				public byte r;
+				public byte b;
+				public byte g;
+				public SaveColor()
+				{
+					r = 0;
+					b = 0;
+					g = 0;
+				}
 			}
-			else if((String)comboBox.SelectedItem == "Blue")
-			{
-				selectedColour = Color.Blue;
-			}
-			else if ((String)comboBox.SelectedItem == "Yellow")
-			{
-				selectedColour = Color.Yellow;
-			}
-			else if ((String)comboBox.SelectedItem == "Green")
-			{
-				selectedColour = Color.Green;
-			}
-			else if ((String)comboBox.SelectedItem == "Red")
-			{
-				selectedColour = Color.Red;
-			}
-			else if ((String)comboBox.SelectedItem == "Orange")
-			{
-				selectedColour = Color.Orange;
-			}
-			else if ((String)comboBox.SelectedItem == "Purple")
-			{
-				selectedColour = Color.Purple;
-			}
+
+			public List<SaveColor> colors = new List<SaveColor>();
 		}
 
-		Color selectedColour = Color.Black;
-		PicrossGrid[,] panelGrid;
-		Label[,] gridCountsY;
-		Label[,] gridCountsX;
-
-		private void button2_Click(object sender, EventArgs e)
+		private void Save_Click(object sender, EventArgs e)
 		{
+			SaveData data = new SaveData();
+			for (int i = 0; i < 100; i++) data.colors.Add(new SaveData.SaveColor());
+			for(int i = 0; i < 10; i++)
+			{
+				for(int j = 0; j < 10; j++)
+				{
+					Color c= panelGrid[i, j].panel.BackColor;
+					data.colors[j + (i + 10)].r = c.R;
+					data.colors[j + (i * 10)].b = c.B;
+					data.colors[j + (i * 10)].g = c.G;
+				}
+			}
 
+			XmlSerializer serializer = new XmlSerializer(typeof(SaveData));
+			TextWriter writer = new StreamWriter("output.xml");
+
+			//SaveLoader colors = new SaveLoader(panelGrid);
+			serializer.Serialize(writer, data);
+			writer.Close();
+		}
+
+		private void Load_Click(object sender, EventArgs e) 
+		{
+			/*
+			 * it was recommended that this function involves a drag and drop,
+			 * dragging a file directly from file browser onto the form window.
+			 */
+		}
+
+		private void panel_MouseMove(object sender, MouseEventArgs e)
+		{
+			Panel panel = (Panel)sender;
+
+			Point screenPoint = panel.PointToScreen(e.Location);
+			//Rectangle panelRect = panelGrid[x, y].panel.RectangleToScreen(panelGrid[x, y].panel.DisplayRectangle);
+			//Console.WriteLine(screenPoint);
+
+			//Console.WriteLine(panelRect.Contains(screenPoint));
+
+			if (mouseDown)
+			{
+				//panel.BackColor = selectedColour;
+				//panelGrid[x, y].panel.BackColor = Color.Red;
+				for(int i = 0; i < 10; i++)
+				{
+					for (int j = 0; j < 10; j++)
+					{
+					Rectangle panelRect = panelGrid[i, j].panel.RectangleToScreen(panelGrid[i, j].panel.DisplayRectangle);
+						if (panelRect.Contains(screenPoint))
+						{
+							if (prevPanel != panelGrid[i, j].panel)
+							{
+								if (panelGrid[i, j].panel.BackColor != DefaultBackColor)
+								{
+									panelGrid[i, j].panel.BackColor = DefaultBackColor;
+								}
+								else
+								{
+									panelGrid[i, j].panel.BackColor = selectedColour;
+								}
+								CheckRow(i); CheckCol(j);
+								prevPanel = panelGrid[i, j].panel;
+							}
+						}
+					}
+				}
+			}
+			
+		}
+
+		//private void panel_MouseLeave(object sender, EventArgs e)
+		//{
+		//	//mouseExit = true;
+		//}
+
+		private void gameEditor_MouseDown(object sender, MouseEventArgs e)
+		{
+			mouseDown = true;
+		}
+
+		private void gameEditor_MouseUp(object sender, MouseEventArgs e)
+		{
+			mouseDown = false;
 		}
 	}
 }
