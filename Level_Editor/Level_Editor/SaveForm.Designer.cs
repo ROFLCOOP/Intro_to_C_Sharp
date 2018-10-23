@@ -30,7 +30,7 @@
 		{
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.buttonCancel = new System.Windows.Forms.Button();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.textFileName = new System.Windows.Forms.TextBox();
 			this.labelDescription = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
@@ -43,6 +43,7 @@
 			this.buttonSave.TabIndex = 0;
 			this.buttonSave.Text = "Save";
 			this.buttonSave.UseVisualStyleBackColor = true;
+			this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
 			// 
 			// buttonCancel
 			// 
@@ -52,13 +53,14 @@
 			this.buttonCancel.TabIndex = 1;
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
+			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
 			// 
-			// textBox1
+			// textFileName
 			// 
-			this.textBox1.Location = new System.Drawing.Point(16, 42);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(128, 20);
-			this.textBox1.TabIndex = 2;
+			this.textFileName.Location = new System.Drawing.Point(16, 42);
+			this.textFileName.Name = "textFileName";
+			this.textFileName.Size = new System.Drawing.Size(128, 20);
+			this.textFileName.TabIndex = 2;
 			// 
 			// labelDescription
 			// 
@@ -76,7 +78,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(202, 111);
 			this.Controls.Add(this.labelDescription);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.textFileName);
 			this.Controls.Add(this.buttonCancel);
 			this.Controls.Add(this.buttonSave);
 			this.Name = "SaveForm";
@@ -90,7 +92,7 @@
 
 		private System.Windows.Forms.Button buttonSave;
 		private System.Windows.Forms.Button buttonCancel;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox textFileName;
 		private System.Windows.Forms.Label labelDescription;
 	}
 }

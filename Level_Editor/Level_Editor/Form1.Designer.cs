@@ -33,7 +33,7 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.comboBoxColour = new System.Windows.Forms.ComboBox();
-			this.button3 = new System.Windows.Forms.Button();
+			this.ButtonNew = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// gameEditor
@@ -67,7 +67,7 @@
 			// 
 			// buttonSave
 			// 
-			this.buttonSave.Location = new System.Drawing.Point(12, 103);
+			this.buttonSave.Location = new System.Drawing.Point(12, 122);
 			this.buttonSave.Name = "buttonSave";
 			this.buttonSave.Size = new System.Drawing.Size(75, 23);
 			this.buttonSave.TabIndex = 3;
@@ -92,21 +92,23 @@
 			this.comboBoxColour.TabIndex = 4;
 			this.comboBoxColour.Text = "Select Colour";
 			// 
-			// button3
+			// ButtonNew
 			// 
-			this.button3.Location = new System.Drawing.Point(13, 132);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(75, 23);
-			this.button3.TabIndex = 5;
-			this.button3.Text = "Load";
-			this.button3.UseVisualStyleBackColor = true;
+			this.ButtonNew.Location = new System.Drawing.Point(13, 93);
+			this.ButtonNew.Name = "ButtonNew";
+			this.ButtonNew.Size = new System.Drawing.Size(75, 23);
+			this.ButtonNew.TabIndex = 5;
+			this.ButtonNew.Text = "New";
+			this.ButtonNew.UseVisualStyleBackColor = true;
+			this.ButtonNew.Click += new System.EventHandler(this.ButtonNew_Click);
 			// 
 			// Form1
 			// 
+			this.AllowDrop = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(431, 256);
-			this.Controls.Add(this.button3);
+			this.Controls.Add(this.ButtonNew);
 			this.Controls.Add(this.comboBoxColour);
 			this.Controls.Add(this.buttonSave);
 			this.Controls.Add(this.button1);
@@ -114,6 +116,8 @@
 			this.Controls.Add(this.gameEditor);
 			this.Name = "Form1";
 			this.Text = "Picross Editor";
+			this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+			this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
 			this.ResumeLayout(false);
 
 		}
@@ -125,7 +129,7 @@
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button buttonSave;
 		private System.Windows.Forms.ComboBox comboBoxColour;
-		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Button ButtonNew;
 	}
 }
 

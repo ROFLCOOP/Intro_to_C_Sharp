@@ -12,9 +12,34 @@ namespace Level_Editor
 {
 	public partial class SaveForm : Form
 	{
-		public SaveForm()
+		public SaveForm(Form1 other)
 		{
 			InitializeComponent();
+			Origin = other;
+			Origin.Hide();
+			Show();
 		}
+
+		private void buttonSave_Click(object sender, EventArgs e)
+		{
+
+			if (Origin.SaveOutput(textFileName.Text))
+			{
+				Origin.Show();
+				Close();
+			}
+			else
+			{
+				MessageBox.Show("Please enter a name in the textbox.");
+			}
+		}
+		private void buttonCancel_Click(object sender, EventArgs e)
+		{
+			Origin.Show();
+			Close();
+		}
+		
+		Form1 Origin;
+
 	}
 }

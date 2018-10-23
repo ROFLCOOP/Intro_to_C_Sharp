@@ -65,7 +65,7 @@ namespace Level_Editor
 					gridCountsX[j, i] = new Label();
 					gridCountsX[j, i].Parent = gameEditor;
 					gridCountsX[j, i].Text = "0";
-					posY = (i * 15) + 61;
+					posY = (i * 16) + 61;
 					posX = (j * 10);
 					gridCountsX[j, i].Location = new Point(posX, posY);
 					gridCountsX[j, i].Width = 19;
@@ -242,59 +242,23 @@ namespace Level_Editor
 		Label[,]		gridCountsX;
 		bool			mouseDown = false;
 		Panel			prevPanel;
-
+		//public string			SaveName;
 
 
 		[Serializable]
 		public class SaveData
 		{
-			[Serializable]
-			public class SaveColor
-			{
-				public byte r;
-				public byte b;
-				public byte g;
-				public SaveColor()
-				{
-					r = 0;
-					b = 0;
-					g = 0;
-				}
-			}
-
-			public List<SaveColor> colors = new List<SaveColor>();
+			public List<int> colors = new List<int>();
 		}
 
 		private void Save_Click(object sender, EventArgs e)
 		{
-			SaveData data = new SaveData();
-			for (int i = 0; i < 100; i++) data.colors.Add(new SaveData.SaveColor());
-			for(int i = 0; i < 10; i++)
-			{
-				for(int j = 0; j < 10; j++)
-				{
-					Color c= panelGrid[i, j].panel.BackColor;
-					data.colors[j + (i + 10)].r = c.R;
-					data.colors[j + (i * 10)].b = c.B;
-					data.colors[j + (i * 10)].g = c.G;
-				}
-			}
+			SaveForm saveForm = new SaveForm(this);
 
-			XmlSerializer serializer = new XmlSerializer(typeof(SaveData));
-			TextWriter writer = new StreamWriter("output.xml");
-
-			//SaveLoader colors = new SaveLoader(panelGrid);
-			serializer.Serialize(writer, data);
-			writer.Close();
 		}
+		
 
-		private void Load_Click(object sender, EventArgs e) 
-		{
-			/*
-			 * it was recommended that this function involves a drag and drop,
-			 * dragging a file directly from file browser onto the form window.
-			 */
-		}
+		
 
 		private void panel_MouseMove(object sender, MouseEventArgs e)
 		{
@@ -337,11 +301,6 @@ namespace Level_Editor
 			
 		}
 
-		//private void panel_MouseLeave(object sender, EventArgs e)
-		//{
-		//	//mouseExit = true;
-		//}
-
 		private void gameEditor_MouseDown(object sender, MouseEventArgs e)
 		{
 			mouseDown = true;
@@ -351,5 +310,89 @@ namespace Level_Editor
 		{
 			mouseDown = false;
 		}
+
+		private void Form1_DragEnter(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+		}
+
+		private void Form1_DragDrop(object sender, DragEventArgs e)
+		{
+			//MessageBox.Show("Dropped");
+
+			string[] file = (string[])e.Data.GetData(DataFormats.FileDrop);
+			XmlSerializer serializer = new XmlSerializer(typeof(SaveData));
+			TextReader reader = new StreamReader(file[0]);
+			SaveData loadData = (SaveData)serializer.Deserialize(reader);
+
+			for(int i = 0; i < 10; i++)
+			{
+				for(int j = 0; j < 10; j++)
+				{
+					Color c = Color.FromArgb(loadData.colors[j + (i * 10)]);
+					if(c.Name == "fff0f0f0") // "fff0f0f0 is code for DefaultBackColor, but is not names defaultbackcolor, so it needs to be assigned properly
+					{
+						panelGrid[i, j].panel.BackColor = DefaultBackColor;
+					}
+					else
+					{
+					panelGrid[i, j].panel.BackColor = c;
+					}
+				}
+			}
+			for(int i = 0; i < 10; i++)
+			{
+				CheckCol(i);
+				CheckRow(i);
+			}
+		}
+		public bool SaveOutput(string fileName)
+		{
+
+			if (fileName != "" && fileName != " ")
+			{
+				SaveData data = new SaveData();
+				for (int i = 0; i < 100; i++) data.colors.Add(0);
+				for(int i = 0; i < 10; i++)
+				{
+					for(int j = 0; j < 10; j++)
+					{
+						int r = panelGrid[i, j].panel.BackColor.R;
+						int g = panelGrid[i, j].panel.BackColor.G;
+						int b = panelGrid[i, j].panel.BackColor.B;
+						Color c = Color.FromArgb(r, g, b);
+						data.colors[j + (i * 10)] = c.ToArgb();
+					}
+				}
+				XmlSerializer serializer = new XmlSerializer(typeof(SaveData));
+				TextWriter writer = new StreamWriter(fileName + ".xml");
+
+				//SaveLoader colors = new SaveLoader(panelGrid);
+				serializer.Serialize(writer, data);
+				writer.Close();
+				fileName = null;
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		private void ButtonNew_Click(object sender, EventArgs e)
+		{
+			for(int i = 0; i < 10; i++)
+				for(int j = 0; j < 10; j++)
+				{
+					panelGrid[i, j].panel.BackColor = DefaultBackColor;
+				}
+
+			for (int i = 0; i < 10; i++)
+			{
+				ClearColCount(i);
+				ClearRowCount(i);
+			}
+		}
 	}
+	
 }
