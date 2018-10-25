@@ -30,7 +30,7 @@
 		{
 			this.gameEditor = new System.Windows.Forms.Panel();
 			this.ButtonExit = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
+			this.ButtonTestPlay = new System.Windows.Forms.Button();
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.comboBoxColour = new System.Windows.Forms.ComboBox();
 			this.ButtonNew = new System.Windows.Forms.Button();
@@ -56,14 +56,15 @@
 			this.ButtonExit.UseVisualStyleBackColor = true;
 			this.ButtonExit.Click += new System.EventHandler(this.ButtonExit_Click);
 			// 
-			// button1
+			// ButtonTestPlay
 			// 
-			this.button1.Location = new System.Drawing.Point(12, 12);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(150, 47);
-			this.button1.TabIndex = 2;
-			this.button1.Text = "Test Play";
-			this.button1.UseVisualStyleBackColor = true;
+			this.ButtonTestPlay.Location = new System.Drawing.Point(12, 12);
+			this.ButtonTestPlay.Name = "ButtonTestPlay";
+			this.ButtonTestPlay.Size = new System.Drawing.Size(150, 47);
+			this.ButtonTestPlay.TabIndex = 2;
+			this.ButtonTestPlay.Text = "Test Play";
+			this.ButtonTestPlay.UseVisualStyleBackColor = true;
+			this.ButtonTestPlay.Click += new System.EventHandler(this.Test_Click);
 			// 
 			// buttonSave
 			// 
@@ -111,7 +112,7 @@
 			this.Controls.Add(this.ButtonNew);
 			this.Controls.Add(this.comboBoxColour);
 			this.Controls.Add(this.buttonSave);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.ButtonTestPlay);
 			this.Controls.Add(this.ButtonExit);
 			this.Controls.Add(this.gameEditor);
 			this.Name = "Form1";
@@ -126,7 +127,7 @@
 
 		private System.Windows.Forms.Panel gameEditor;
 		private System.Windows.Forms.Button ButtonExit;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button ButtonTestPlay;
 		private System.Windows.Forms.Button buttonSave;
 		private System.Windows.Forms.ComboBox comboBoxColour;
 		private System.Windows.Forms.Button ButtonNew;

@@ -35,10 +35,10 @@ namespace Level_Editor
 					panelGrid[i, j].panel.Location = new Point(posX, posY);
 					panelGrid[i, j].panel.Size = new Size(15, 15);
 					panelGrid[i, j].panel.BorderStyle = BorderStyle.FixedSingle;
-					panelGrid[i, j].panel.Click += Panel_Click;
 					panelGrid[i, j].itX = j;
 					panelGrid[i, j].itY = i;
 					panelGrid[i, j].panel.BringToFront();
+					panelGrid[i, j].panel.Click += Panel_Click;
 					panelGrid[i, j].panel.MouseMove += panel_MouseMove;
 					//panelGrid[i, j].panel.MouseLeave += panel_MouseLeave;
 					panelGrid[i, j].panel.MouseDown += delegate (object sender, MouseEventArgs e)
@@ -49,8 +49,6 @@ namespace Level_Editor
 					{
 						gameEditor_MouseUp(sender, e);
 					};
-
-
 				}
 				for (int j = 0; j < 5; j++)
 				{
@@ -265,10 +263,6 @@ namespace Level_Editor
 			Panel panel = (Panel)sender;
 
 			Point screenPoint = panel.PointToScreen(e.Location);
-			//Rectangle panelRect = panelGrid[x, y].panel.RectangleToScreen(panelGrid[x, y].panel.DisplayRectangle);
-			//Console.WriteLine(screenPoint);
-
-			//Console.WriteLine(panelRect.Contains(screenPoint));
 
 			if (mouseDown)
 			{
@@ -336,7 +330,7 @@ namespace Level_Editor
 					}
 					else
 					{
-					panelGrid[i, j].panel.BackColor = c;
+					panelGrid[i, j].panel.BackColor = Color.Black;
 					}
 				}
 			}
@@ -392,6 +386,13 @@ namespace Level_Editor
 				ClearColCount(i);
 				ClearRowCount(i);
 			}
+		}
+
+		private void Test_Click(object sender, EventArgs e)
+		{
+			TestPlay test = new TestPlay(panelGrid, gridCountsX, gridCountsY, this);
+			test.Show();
+			//Hide();
 		}
 	}
 	

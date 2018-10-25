@@ -65,6 +65,12 @@
       <DependentUpon>SaveForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SaveLoader.cs" />
+    <Compile Include="TestPlay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestPlay.Designer.cs">
+      <DependentUpon>TestPlay.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -79,6 +85,9 @@
     </Compile>
     <EmbeddedResource Include="SaveForm.resx">
       <DependentUpon>SaveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestPlay.resx">
+      <DependentUpon>TestPlay.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

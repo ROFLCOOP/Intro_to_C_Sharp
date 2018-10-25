@@ -9,7 +9,7 @@ using System.Drawing;
 
 namespace Level_Editor
 {
-	class PicrossGrid
+	public class PicrossGrid
 	{
 		public Panel panel = new Panel();
 		public int itX;
