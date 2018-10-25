@@ -394,6 +394,40 @@ namespace Level_Editor
 			test.Show();
 			//Hide();
 		}
-	}
+
+        private void comboBoxColour_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox colour = (ComboBox)sender;
+
+            if(colour.Text == "Black")
+            {
+                selectedColour = Color.Black;
+            }
+            else if(colour.Text == "Blue")
+            {
+                selectedColour = Color.Blue;
+            }
+            else if (colour.Text == "Yellow")
+            {
+                selectedColour = Color.Yellow;
+            }
+            else if (colour.Text == "Green")
+            {
+                selectedColour = Color.Green;
+            }
+            else if (colour.Text == "Red")
+            {
+                selectedColour = Color.Red;
+            }
+            else if (colour.Text == "Orange")
+            {
+                selectedColour = Color.Orange;
+            }
+            else if (colour.Text == "Purple")
+            {
+                selectedColour = Color.Purple;
+            }
+        }
+    }
 	
 }

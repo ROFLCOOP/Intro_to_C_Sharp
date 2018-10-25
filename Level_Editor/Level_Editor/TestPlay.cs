@@ -78,7 +78,10 @@ namespace Level_Editor
 					gridCountsY[i, j].Height = 12;
 					gridCountsY[i, j].Text = yLabels[i, j].Text;
 					gridCountsY[i, j].Visible = yLabels[i, j].Visible;
-				}
+
+                    if (gridCountsY[i, j].Text != "0")
+                        gridCountsY[i, j].Visible = true;
+                }
 			}
 		}
 
@@ -233,7 +236,7 @@ namespace Level_Editor
 			{
 				for (int j = 0; j < 10; j++)
 				{
-					if(picrossGrid[i, j].panel.BackColor !=  otherGrid[i, j].panel.BackColor)
+					if((picrossGrid[i, j].panel.BackColor == Color.Black && otherGrid[i, j].panel.BackColor == DefaultBackColor) || (picrossGrid[i, j].panel.BackColor == DefaultBackColor && otherGrid[i, j].panel.BackColor != DefaultBackColor))
 					{
 						gameWon = false;
 					}
@@ -241,16 +244,22 @@ namespace Level_Editor
 			}
 			if(gameWon)
 			{
+                RecolourGrid();
 				MessageBox.Show("WIN");
 				original.Show();
 				Close();
 			}
 		}
-
-		private void TestPlay_MouseDown(object sender, MouseEventArgs e)
-		{
-			//if (e.Button == MouseButtons.Right)
-				//Close();
-		}
+        
+        private void RecolourGrid()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    picrossGrid[i, j].panel.BackColor = otherGrid[i, j].panel.BackColor;
+                }
+            }
+        }
 	}
 }
