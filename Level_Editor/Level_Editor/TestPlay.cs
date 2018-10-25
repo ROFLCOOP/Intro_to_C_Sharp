@@ -236,7 +236,8 @@ namespace Level_Editor
 			{
 				for (int j = 0; j < 10; j++)
 				{
-					if((picrossGrid[i, j].panel.BackColor == Color.Black && otherGrid[i, j].panel.BackColor == DefaultBackColor) || (picrossGrid[i, j].panel.BackColor == DefaultBackColor && otherGrid[i, j].panel.BackColor != DefaultBackColor))
+					if((picrossGrid[i, j].panel.BackColor == Color.Black && otherGrid[i, j].panel.BackColor == DefaultBackColor) ||
+                        (picrossGrid[i, j].panel.BackColor == DefaultBackColor && otherGrid[i, j].panel.BackColor != DefaultBackColor))
 					{
 						gameWon = false;
 					}

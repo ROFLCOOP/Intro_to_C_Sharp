@@ -328,12 +328,36 @@ namespace Level_Editor
 					{
 						panelGrid[i, j].panel.BackColor = DefaultBackColor;
 					}
-					else
-					{
-					panelGrid[i, j].panel.BackColor = Color.Black;
-					}
-				}
-			}
+                    else if (c.Name == "ff000000")
+                    {
+                        panelGrid[i, j].panel.BackColor = Color.Black;
+                    }
+                    else if (c.Name == "ff0000ff")
+                    {
+                        panelGrid[i, j].panel.BackColor = Color.Blue;
+                    }
+                    else if (c.Name == "ffffff00")
+                    {
+                        panelGrid[i, j].panel.BackColor = Color.Yellow;
+                    }
+                    else if (c.Name == "ff008000")
+                    {
+                        panelGrid[i, j].panel.BackColor = Color.Green;
+                    }
+                    else if (c.Name == "ffff0000")
+                    {
+                        panelGrid[i, j].panel.BackColor = Color.Red;
+                    }
+                    else if (c.Name == "ffffa500")
+                    {
+                        panelGrid[i, j].panel.BackColor = Color.Orange;
+                    }
+                    else if (c.Name == "ff800080")
+                    {
+                        panelGrid[i, j].panel.BackColor = Color.Purple;
+                    }
+                }
+            }
 			for(int i = 0; i < 10; i++)
 			{
 				CheckCol(i);
@@ -392,7 +416,6 @@ namespace Level_Editor
 		{
 			TestPlay test = new TestPlay(panelGrid, gridCountsX, gridCountsY, this);
 			test.Show();
-			//Hide();
 		}
 
         private void comboBoxColour_SelectedIndexChanged(object sender, EventArgs e)
